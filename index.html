@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NHI Bot v3.0 - Full Release | Kurrasch Systems</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000000;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ice Rink Background Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.03) 50%, transparent 100%),
+                linear-gradient(0deg, #000000 0%, #0a0a0f 30%, #1a0b2e 60%, #16213e 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Ice Lines */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 20%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(239, 68, 68, 0.3);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid rgba(239, 68, 68, 0.5);
+            box-shadow: 0 4px 30px rgba(139, 92, 246, 0.2);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ef4444 0%, #8b5cf6 50%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 600;
+            position: relative;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ef4444, #8b5cf6);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #ef4444;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-banner {
+            max-width: 900px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto 50px;
+            border-radius: 20px;
+            box-shadow: 
+                0 0 60px rgba(139, 92, 246, 0.4),
+                0 0 100px rgba(239, 68, 68, 0.3);
+            animation: float 8s ease-in-out infinite;
+            border: 3px solid rgba(139, 92, 246, 0.3);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-25px) scale(1.02); }
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #ef4444 0%, #8b5cf6 30%, #3b82f6 70%, #ef4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .hero p {
+            font-size: 22px;
+            color: #b0b0b0;
+            margin-bottom: 50px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            box-shadow: 0 10px 40px rgba(239, 68, 68, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(239, 68, 68, 0.7);
+        }
+
+        .btn-secondary {
+            background: rgba(139, 92, 246, 0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.8);
+            transform: translateY(-5px);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 52px;
+            margin-bottom: 70px;
+            background: linear-gradient(135deg, #ef4444 0%, #8b5cf6 50%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 45px;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #ef4444, #8b5cf6, #3b82f6);
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 
+                0 25px 50px rgba(139, 92, 246, 0.4),
+                0 0 60px rgba(239, 68, 68, 0.3);
+            border-color: transparent;
+        }
+
+        .feature-icon {
+            font-size: 56px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.6));
+        }
+
+        .feature-card h3 {
+            font-size: 26px;
+            margin-bottom: 18px;
+            color: #ef4444;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feature-card p {
+            line-height: 1.8;
+            color: #c0c0c0;
+        }
+
+        /* Pricing Tiers */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .pricing-card {
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 45px;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            text-align: center;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .pricing-card:hover::before {
+            left: 100%;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: rgba(239, 68, 68, 0.6);
+            box-shadow: 0 25px 50px rgba(239, 68, 68, 0.4);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid #ef4444;
+            box-shadow: 0 20px 60px rgba(239, 68, 68, 0.4);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .tier-name {
+            font-size: 32px;
+            color: #ef4444;
+            margin-bottom: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tier-price {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #ef4444, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tier-price span {
+            font-size: 22px;
+            color: #b0b0b0;
+        }
+
+        .tier-features {
+            list-style: none;
+            margin: 35px 0;
+            text-align: left;
+        }
+
+        .tier-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #c0c0c0;
+        }
+
+        .tier-features li:before {
+            content: "⚡ ";
+            color: #ef4444;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        /* Theme Showcase */
+        .theme-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .theme-card {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid rgba(139, 92, 246, 0.4);
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .theme-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(139, 92, 246, 0.2));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .theme-card:hover::after {
+            opacity: 1;
+        }
+
+        .theme-card:hover {
+            transform: scale(1.08) rotate(2deg);
+            box-shadow: 
+                0 25px 60px rgba(139, 92, 246, 0.5),
+                0 0 80px rgba(239, 68, 68, 0.4);
+            border-color: #ef4444;
+        }
+
+        .theme-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .theme-label {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            padding: 18px;
+            text-align: center;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 16px;
+        }
+
+        /* Commands Section */
+        .command-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .tab-btn {
+            padding: 18px 50px;
+            background: rgba(10, 10, 15, 0.6);
+            border: 2px solid rgba(139, 92, 246, 0.4);
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 15px;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border-color: transparent;
+            box-shadow: 0 10px 40px rgba(239, 68, 68, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .command-list {
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 50px;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .command-item {
+            padding: 25px;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            border-left: 5px solid #ef4444;
+            transition: all 0.3s;
+        }
+
+        .command-item:hover {
+            background: rgba(239, 68, 68, 0.1);
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+        }
+
+        .command-syntax {
+            font-family: 'Courier New', monospace;
+            color: #3b82f6;
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .command-desc {
+            color: #b0b0b0;
+            line-height: 1.7;
+        }
+
+        /* Holiday Packs */
+        .holiday-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .holiday-pack {
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.4s;
+        }
+
+        .holiday-pack:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: rgba(239, 68, 68, 0.6);
+            box-shadow: 0 20px 50px rgba(239, 68, 68, 0.4);
+        }
+
+        .holiday-icon {
+            font-size: 56px;
+            margin-bottom: 18px;
+            filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.6));
+        }
+
+        .holiday-pack h3 {
+            color: #ef4444;
+            margin-bottom: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .holiday-pack p {
+            color: #b0b0b0;
+            font-weight: 600;
+        }
+
+        /* Changelog */
+        .timeline {
+            position: relative;
+            padding: 50px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #ef4444, #8b5cf6, #3b82f6);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border-left: 5px solid #ef4444;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 20px 60px rgba(239, 68, 68, 0.4);
+        }
+
+        .version {
+            color: #ef4444;
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline-item p {
+            color: #c0c0c0;
+            line-height: 1.9;
+        }
+
+        .timeline-item ul {
+            margin-left: 25px;
+            margin-top: 20px;
+        }
+
+        .timeline-item ul li {
+            color: #c0c0c0;
+            line-height: 1.9;
+            margin-bottom: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 15, 0.95);
+            padding: 80px 0 40px;
+            margin-top: 100px;
+            border-top: 3px solid rgba(239, 68, 68, 0.5);
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h3 {
+            color: #ef4444;
+            margin-bottom: 25px;
+            font-size: 22px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .footer-links a:hover {
+            color: #ef4444;
+            padding-left: 10px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            color: #b0b0b0;
+        }
+
+        .footer-bottom p {
+            margin: 8px 0;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .welcome-card-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .welcome-card-demo {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid rgba(139, 92, 246, 0.4);
+            transition: all 0.4s;
+            background-size: cover;
+            background-position: center;
+            aspect-ratio: 16/9;
+        }
+
+        .welcome-card-demo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 60px rgba(139, 92, 246, 0.5);
+            border-color: #ef4444;
+        }
+
+        .welcome-card-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .avatar-ring {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            border: 5px solid;
+        }
+
+        .avatar-placeholder {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: #2c2c2c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+
+        .welcome-text {
+            text-align: center;
+        }
+
+        .welcome-text h3 {
+            font-size: 42px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .welcome-text .username {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+        }
+
+        .welcome-text .member-count {
+            font-size: 20px;
+            font-weight: 600;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .features-grid,
+            .theme-showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">🏒 NHI Bot v3.0</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#commands">Commands</a></li>
+                <li><a href="#setup">Setup</a></li>
+                <li><a href="#changelog">Changelog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <img src="https://raw.githubusercontent.com/sapphirediamondcasino-bit/NHI-Bot-Images/main/NHI%20Bot%20Banner.png" alt="NHI Bot v3.0 Banner" class="hero-banner">
+            <img src="https://raw.githubusercontent.com/sapphirediamondcasino-bit/NHI-Bot-Images/main/standard.gif" alt="Kurrasch Systems" style="max-width: 600px; width: 100%; height: auto; margin: 30px auto 50px; display: block; border-radius: 15px; box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3);">
+            <h1>NHI Bot v3.0 – Full Release</h1>
+            <p>A feature-rich Discord moderation and community management bot built for powerful automation, role control, and stylish welcome systems. Born from a hockey community, evolved into a complete server solution.</p>
+            <div class="cta-buttons">
+                <a href="https://discord.com/oauth2/authorize?client_id=1042167339476590643&permissions=242666031174&integration_type=0&scope=bot+applications.commands" class="btn btn-primary" target="_blank">Invite NHI Bot</a>
+                <a href="#documentation" class="btn btn-secondary">Documentation</a>
+                <a href="https://kurraschsystemsstudio.online" class="btn btn-secondary" target="_blank">Kurrasch Systems</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title">Powerful Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Custom Welcome System</h3>
+                    <p>9 color themes with customizable welcome cards featuring member avatars and text variables. Support for goodbye messages and tiered customization system with fonts, backgrounds, and animated effects.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Moderation Tools</h3>
+                    <p>Complete moderation suite including ban, kick, timeout with duration options, and warn system. Features role management, permission validation, and DM notifications.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎭</div>
+                    <h3>Role Selector</h3>
+                    <p>Self-assignable roles using interactive buttons. Members can add or remove roles with one click. Fully customizable for your server needs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Advanced Configuration</h3>
+                    <p>Slash and prefix command support with persistent settings. Comprehensive error handling, permission checks, and logging system built-in.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Bot Statistics</h3>
+                    <p>Track bot performance with the /ping command. View latency, uptime, server count, and system statistics at a glance.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎁</div>
+                    <h3>Premium System</h3>
+                    <p>4-tier premium system with increasing customization options. Access to 240 seasonal themes across 12 holiday packs with custom fonts, avatar frames, and GIF backgrounds.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 class="section-title">Welcome Card System</h2>
+            <p style="text-align: center; color: #b0b0b0; margin-bottom: 50px; font-size: 18px;">Fully customizable welcome cards with your choice of 9 default themes plus 240 seasonal variations</p>
+            
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h3 style="color: #ef4444; font-size: 32px; margin-bottom: 35px; text-transform: uppercase; letter-spacing: 1px;">9 Default Themes</h3>
+                <div class="welcome-card-showcase">
+                    <!-- Purple Theme -->
+                    <div class="welcome-card-demo" style="background-image: url('https://raw.githubusercontent.com/sapphirediamondcasino-bit/NHI-Bot-Images/main/Nhi%20purple.png');">
+                        <div class="welcome-card-content">
+                            <div class="avatar-ring" style="border-color: #9b59b6;">
+                                <div class="avatar-placeholder">👤</div>
+                            </div>
+                            <div class="welcome-text" style="color: #ffffff;">
+                                <h3>WELCOME</h3>
+                                <div class="username">USERNAME</div>
+                                <div class="member-count" style="color: #e056fd;">YOU ARE OUR #1234 MEMBER!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Red Theme -->
+                    <div class="welcome-card-demo" style="background-image: url('https://raw.githubusercontent.com/sapphirediamondcasino-bit/NHI-Bot-Images/main/Nhi%20red.png');">
+                        <div class="welcome-card-content">
+                            <div class="avatar-ring" style="border-color: #e74c3c;">
+                                <div class="avatar-placeholder">👤</div>
+                            </div>
+                            <div class="welcome-text" style="color: #ffffff;">
+                                <h3>WELCOME</h3>
+                                <div class="username">USERNAME</div>
+                                <div class="member-count" style="color: #ff6b6b;">YOU ARE OUR #1234 MEMBER!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yellow Theme -->
+                    <div class="welcome-card-demo" style="background-image: url('https://raw.githubusercontent.com/sapphirediamondcasino-bit/NHI-Bot-Images/main/Nhi%20yellow.png');">
+                        <div class="welcome-card-content">
+                            <div class="avatar-ring" style="border-color: #f1c40f;">
+                                <div class="avatar-placeholder">👤</div>
+                            </div>
+                            <div class="welcome-text" style="color: #2c3e50;">
+                                <h3>WELCOME</h3>
+                                <div class="username">USERNAME</div>
+                                <div class="member-count" style="color: #ffd93d;">YOU ARE OUR #1234 MEMBER!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blue Theme -->
+                    <div class="welcome-card-demo" style="background-image: url('https://raw.githubusercontent.com/sapphirediamondcasino-bit/NHI-Bot-Images/main/nhi%20blue.png');">
+                        <div class="welcome-card-content">
+                            <div class="avatar-ring" style="border-color: #3498db;">
+                                <div class="avatar-placeholder">👤</div>
+                            </div>
+                            <div class="welcome-text" style="color: #ffffff;">
+                                <h3>WELCOME</h3>
+                                <div class="username">USERNAME</div>
+                                <div class="member-count" style="color: #74b9ff;">YOU ARE OUR #1234 MEMBER!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Green Theme -->
+                    <div class="welcome-card-demo" style="background: linear-gradient(135deg, #1a4d2e 0%, #2ecc71 100%);">
+                        <div class="welcome-card-content">
+                            <div class="avatar-ring" style="border-color: #2ecc71;">
+                                <div class="avatar-placeholder">👤</div>
+                            </div>
+                            <div class="welcome-text" style="color: #ffffff;">
+                                <h3>WELCOME</h3>
+                                <div class="username">USERNAME</div>
+                                <div class="member-count" style="color: #6bcf7f;">YOU ARE OUR #1234 MEMBER!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Orange Theme -->
+                    <div class="welcome-card-demo" style="background: linear-gradient(135deg, #8b3a00 0%, #e67e22 100%);">
+                        <div class="welcome-card-content">
+                            <div class="avatar-ring" style="border-color: #e67e22;">
+                                <div class="avatar-placeholder">👤</div>
+                            </div>
+                            <div class="welcome-text" style="color: #ffffff;">
+                                <h3>WELCOME</h3>
+                                <div class="username">USERNAME</div>
+                                <div class="member-count" style="color: #ff9f43;">YOU ARE OUR #1234 MEMBER!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pink Theme -->
+                    <div class="welcome-card-demo" style="background: linear-gradient(135deg, #6b0042 0%, #ff1493 100%);">
+                        <div class="welcome-card-content">
+                            <div class="avatar-ring" style="border-color: #ff1493;">
+                                <div class="avatar-placeholder">👤</div>
+                            </div>
+                            <div class="welcome-text" style="color: #ffffff;">
+                                <h3>WELCOME</h3>
+                                <div class="username">USERNAME</div>
+                                <div class="member-count" style="color: #ff69b4;">YOU ARE OUR #1234 MEMBER!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dark Theme -->
+                    <div class="welcome-card-demo" style="background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);">
+                        <div class="welcome-card-content">
+                            <div class="avatar-ring" style="border-color: #ff0000;">
+                                <div class="avatar-placeholder">👤</div>
+                            </div>
+                            <div class="welcome-text" style="color: #ffffff;">
+                                <h3>WELCOME</h3>
+                                <div class="username">USERNAME</div>
+                                <div class="member-count" style="color: #ff4444;">YOU ARE OUR #1234 MEMBER!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Default NHI Theme -->
+                    <div class="welcome-card-demo" style="background: linear-gradient(135deg, #1a0b2e 0%, #8b5cf6 100%);">
+                        <div class="welcome-card-content">
+                            <div class="avatar-ring" style="border-color: #8b5cf6;">
+                                <div class="avatar-placeholder">👤</div>
+                            </div>
+                            <div class="welcome-text" style="color: #ffffff;">
+                                <h3>WELCOME</h3>
+                                <div class="username">USERNAME</div>
+                                <div class="member-count" style="color: #c4b5fd;">YOU ARE OUR #1234 MEMBER!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 50px; padding: 40px; background: rgba(239, 68, 68, 0.1); border-radius: 20px; border: 2px solid rgba(239, 68, 68, 0.4);">
+                    <h4 style="color: #ef4444; font-size: 24px; margin-bottom: 15px; text-transform: uppercase;">Customize Everything!</h4>
+                    <p style="color: #c0c0c0; font-size: 16px; line-height: 1.8;">With premium tiers, you can customize backgrounds, fonts, avatar ring shapes (circle, hexagon, star, etc.), text colors, and even add animated GIF backgrounds. Each member gets a personalized welcome card when they join your server!</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 80px;">
+                <h3 style="color: #ef4444; font-size: 32px; margin-bottom: 35px; text-align: center; text-transform: uppercase; letter-spacing: 1px;">🎃 Halloween Pack Preview</h3>
+                <div style="background: rgba(10, 10, 15, 0.6); backdrop-filter: blur(20px); border-radius: 25px; padding: 50px; border: 2px solid rgba(255, 107, 53, 0.3); margin-bottom: 50px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FF6B35;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🎃</div>
+                            <h4 style="color: #FF6B35; margin-bottom: 8px; font-weight: 800;">Pumpkin Patch</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #E0E0E0;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">👻</div>
+                            <h4 style="color: #E0E0E0; margin-bottom: 8px; font-weight: 800;">Haunted Ghost</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #8B4789;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🧙</div>
+                            <h4 style="color: #B565B3; margin-bottom: 8px; font-weight: 800;">Witch's Brew</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #666666;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🕷️</div>
+                            <h4 style="color: #999999; margin-bottom: 8px; font-weight: 800;">Spider Web</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FFA500;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🍬</div>
+                            <h4 style="color: #FFD93D; margin-bottom: 8px; font-weight: 800;">Candy Corn</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(139, 92, 246, 0.1); border-radius: 15px; border: 2px solid #8b5cf6;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🪦</div>
+                            <h4 style="color: #8b5cf6; margin-bottom: 8px; font-weight: 800;">Spooky Cemetery</h4>
+                            <p style="color: #8b5cf6; font-size: 14px; font-weight: 700;">TIER 1</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(139, 92, 246, 0.1); border-radius: 15px; border: 2px solid #8b5cf6;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🌕</div>
+                            <h4 style="color: #CD5C5C; margin-bottom: 8px; font-weight: 800;">Blood Moon</h4>
+                            <p style="color: #8b5cf6; font-size: 14px; font-weight: 700;">TIER 1</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 15px; border: 2px solid #ef4444;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🧟</div>
+                            <h4 style="color: #8FBC8F; margin-bottom: 8px; font-weight: 800;">Zombie Apocalypse</h4>
+                            <p style="color: #ef4444; font-size: 14px; font-weight: 700;">TIER 2</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 15px; border: 2px solid #ef4444;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🏚️</div>
+                            <h4 style="color: #5C4033; margin-bottom: 8px; font-weight: 800;">Haunted Mansion</h4>
+                            <p style="color: #ef4444; font-size: 14px; font-weight: 700;">TIER 2</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(139, 92, 246, 0.15)); border-radius: 15px; border: 2px solid #FFD700;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">☠️</div>
+                            <h4 style="color: #FFD700; margin-bottom: 8px; font-weight: 800;">Grim Reaper</h4>
+                            <p style="color: #FFD700; font-size: 14px; font-weight: 700;">TIER 3</p>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 30px; color: #b0b0b0; font-size: 16px;">+ 10 more themes in this pack</p>
+                </div>
+
+                <h3 style="color: #ef4444; font-size: 32px; margin-bottom: 35px; text-align: center; text-transform: uppercase; letter-spacing: 1px;">🦃 Thanksgiving Pack Preview</h3>
+                <div style="background: rgba(10, 10, 15, 0.6); backdrop-filter: blur(20px); border-radius: 25px; padding: 50px; border: 2px solid rgba(139, 69, 19, 0.4); margin-bottom: 50px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #8B4513;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🦃</div>
+                            <h4 style="color: #D2691E; margin-bottom: 8px; font-weight: 800;">Turkey Time</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FFA500;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🌾</div>
+                            <h4 style="color: #FFD700; margin-bottom: 8px; font-weight: 800;">Harvest Season</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FF8C00;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🥧</div>
+                            <h4 style="color: #FFA500; margin-bottom: 8px; font-weight: 800;">Pumpkin Pie</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #CD853F;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🍂</div>
+                            <h4 style="color: #DEB887; margin-bottom: 8px; font-weight: 800;">Autumn Leaves</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #DAA520;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🌽</div>
+                            <h4 style="color: #FFD700; margin-bottom: 8px; font-weight: 800;">Cornucopia</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(139, 92, 246, 0.1); border-radius: 15px; border: 2px solid #8b5cf6;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🍽️</div>
+                            <h4 style="color: #D2691E; margin-bottom: 8px; font-weight: 800;">Family Feast</h4>
+                            <p style="color: #8b5cf6; font-size: 14px; font-weight: 700;">TIER 1</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 15px; border: 2px solid #ef4444;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🏡</div>
+                            <h4 style="color: #BC8F8F; margin-bottom: 8px; font-weight: 800;">Country Farmhouse</h4>
+                            <p style="color: #ef4444; font-size: 14px; font-weight: 700;">TIER 2</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(139, 92, 246, 0.15)); border-radius: 15px; border: 2px solid #FFD700;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🎗️</div>
+                            <h4 style="color: #FFD700; margin-bottom: 8px; font-weight: 800;">Abundance</h4>
+                            <p style="color: #FFD700; font-size: 14px; font-weight: 700;">TIER 3</p>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 30px; color: #b0b0b0; font-size: 16px;">+ 12 more themes in this pack</p>
+                </div>
+
+                <h3 style="color: #ef4444; font-size: 32px; margin-bottom: 35px; text-align: center; text-transform: uppercase; letter-spacing: 1px;">🎄 Christmas Pack Preview</h3>
+                <div style="background: rgba(10, 10, 15, 0.6); backdrop-filter: blur(20px); border-radius: 25px; padding: 50px; border: 2px solid rgba(34, 139, 34, 0.4);">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #228B22;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🎄</div>
+                            <h4 style="color: #32CD32; margin-bottom: 8px; font-weight: 800;">Christmas Tree</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #DC143C;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🎅</div>
+                            <h4 style="color: #FF6347; margin-bottom: 8px; font-weight: 800;">Santa Claus</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #E0FFFF;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">⛄</div>
+                            <h4 style="color: #E0FFFF; margin-bottom: 8px; font-weight: 800;">Snowman</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FFD700;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🎁</div>
+                            <h4 style="color: #FFA500; margin-bottom: 8px; font-weight: 800;">Gift Wrapped</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #87CEEB;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">❄️</div>
+                            <h4 style="color: #B0E0E6; margin-bottom: 8px; font-weight: 800;">Snowy Night</h4>
+                            <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(139, 92, 246, 0.1); border-radius: 15px; border: 2px solid #8b5cf6;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🍬</div>
+                            <h4 style="color: #DC143C; margin-bottom: 8px; font-weight: 800;">Candy Cane Lane</h4>
+                            <p style="color: #8b5cf6; font-size: 14px; font-weight: 700;">TIER 1</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 15px; border: 2px solid #ef4444;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🔥</div>
+                            <h4 style="color: #FF4500; margin-bottom: 8px; font-weight: 800;">Cozy Fireplace</h4>
+                            <p style="color: #ef4444; font-size: 14px; font-weight: 700;">TIER 2</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(139, 92, 246, 0.15)); border-radius: 15px; border: 2px solid #FFD700;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🌟</div>
+                            <h4 style="color: #FFD700; margin-bottom: 8px; font-weight: 800;">Christmas Magic</h4>
+                            <p style="color: #FFD700; font-size: 14px; font-weight: 700;">TIER 3</p>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 30px; color: #b0b0b0; font-size: 16px;">+ 12 more themes in this pack</p>
+                </div>
+
+                <div style="text-align: center; margin-top: 60px; padding: 40px; background: rgba(239, 68, 68, 0.1); border-radius: 20px; border: 2px solid rgba(239, 68, 68, 0.4);">
+                    <h3 style="color: #ef4444; font-size: 28px; margin-bottom: 20px; text-transform: uppercase;">9 More Holiday Packs Available!</h3>
+                    <p style="color: #c0c0c0; font-size: 18px; margin-bottom: 25px;">New Year, Valentine's Day, St. Patrick's, Easter, 4th of July, Labor Day, Veterans Day, Memorial Day, and Juneteenth</p>
+                    <a href="#pricing" class="btn btn-primary">View All Pricing Tiers</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="container">
+            <h2 class="section-title">Premium Tiers</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="tier-name">Free</div>
+                    <div class="tier-price">$0<span>/forever</span></div>
+                    <ul class="tier-features">
+                        <li>8 basic themes</li>
+                        <li>5 themes per holiday pack</li>
+                        <li>Basic welcome cards</li>
+                        <li>Standard moderation</li>
+                        <li>Role selector</li>
+                    </ul>
+                    <a href="https://discord.com/oauth2/authorize?client_id=1042167339476590643&permissions=242666031174&integration_type=0&scope=bot+applications.commands" class="btn btn-secondary" target="_blank">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="tier-name">Tier 1</div>
+                    <div class="tier-price">$4.99<span>/month</span></div>
+                    <ul class="tier-features">
+                        <li>All Free features</li>
+                        <li>Custom backgrounds</li>
+                        <li>4 custom fonts</li>
+                        <li>Custom colors</li>
+                        <li>10 themes per holiday pack</li>
+                    </ul>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="tier-name">Tier 2</div>
+                    <div class="tier-price">$9.99<span>/month</span></div>
+                    <ul class="tier-features">
+                        <li>All Tier 1 features</li>
+                        <li>7 custom fonts</li>
+                        <li>3 avatar frame shapes</li>
+                        <li>15 themes per holiday pack</li>
+                        <li>Priority support</li>
+                    </ul>
+                </div>
+                <div class="pricing-card">
+                    <div class="tier-name">Tier 3</div>
+                    <div class="tier-price">$14.99<span>/month</span></div>
+                    <ul class="tier-features">
+                        <li>All Tier 2 features</li>
+                        <li>9 custom fonts</li>
+                        <li>5 avatar frame shapes</li>
+                        <li>Premium effects</li>
+                        <li>20 themes per holiday pack</li>
+                        <li>GIF animated backgrounds</li>
+                    </ul>
+                </div>
+                <div class="pricing-card">
+                    <div class="tier-name">Tier 4</div>
+                    <div class="tier-price">$19.99<span>/month</span></div>
+                    <ul class="tier-features">
+                        <li>All Tier 3 features</li>
+                        <li>All custom fonts</li>
+                        <li>All avatar frames</li>
+                        <li>All 20 themes per pack</li>
+                        <li>Ultimate customization</li>
+                        <li>Priority support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 class="section-title">12 Seasonal Holiday Packs</h2>
+            <p style="text-align: center; color: #b0b0b0; margin-bottom: 40px; font-size: 18px;">240 total themes across all major holidays - unlock more with premium tiers!</p>
+            <div class="holiday-grid">
+                <div class="holiday-pack">
+                    <div class="holiday-icon">🎃</div>
+                    <h3>Halloween</h3>
+                    <p>20 spooky themes</p>
+                </div>
+                <div class="holiday-pack">
+                    <div class="holiday-icon">🦃</div>
+                    <h3>Thanksgiving</h3>
+                    <p>20 festive themes</p>
+                </div>
+                <div class="holiday-pack">
+                    <div class="holiday-icon">🎄</div>
+                    <h3>Christmas</h3>
+                    <p>20 jolly themes</p>
+                </div>
+                <div class="holiday-pack">
+                    <div class="holiday-icon">🎆</div>
+                    <h3>New Year</h3>
+                    <p>20 celebration themes</p>
+                </div>
+                <div class="holiday-pack">
+                    <div class="holiday-icon">💘</div>
+                    <h3>Valentine's Day</h3>
+                    <p>20 romantic themes</p>
+                </div>
+                <div class="holiday-pack">
+                    <div class="holiday-icon">☘️</div>
+                    <h3>St. Patrick's</h3>
+                    <p>20 lucky themes</p>
+                </div>
+                <div class="holiday-pack">
+                    <div class="holiday-icon">🐣</div>
+                    <h3>Easter</h3>
+                    <p>20 spring themes</p>
+                </div>
+                <div class="holiday-pack">
+                    <div class="holiday-icon">🇺🇸</div>
+                    <h3>4th of July</h3>
+                    <p>20 patriotic themes</p>
+                </div>
+                <div class="holiday-pack">
+                    <div class="holiday-icon">⚒️</div>
+                    <h3>Labor Day</h3>
+                    <p>20 themed designs</p>
+                </div>
+                <div class="holiday-pack">
+                    <div class="holiday-icon">🎖️</div>
+                    <h3>Veterans Day</h3>
+                    <p>20 honor themes</p>
+                </div>
+                <div class="holiday-pack">
+                    <div class="holiday-icon">🪖</div>
+                    <h3>Memorial Day</h3>
+                    <p>20 tribute themes</p>
+                </div>
+                <div class="holiday-pack">
+                    <div class="holiday-icon">✊🏿</div>
+                    <h3>Juneteenth</h3>
+                    <p>20 freedom themes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="commands">
+        <div class="container">
+            <h2 class="section-title">Bot Commands</h2>
+            <div class="command-tabs">
+                <button class="tab-btn active" onclick="switchTab('slash')">Slash Commands</button>
+                <button class="tab-btn" onclick="switchTab('prefix')">Prefix Commands</button>
+            </div>
+            
+            <div id="slash-commands" class="tab-content active">
+                <div class="command-list">
+                    <div class="command-item">
+                        <div class="command-syntax">/welcome</div>
+                        <div class="command-desc">Opens an interactive configuration panel to customize your server's welcome system. Set welcome channel, choose themes, customize text, fonts, backgrounds, and preview welcome cards.</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">/premium</div>
+                        <div class="command-desc">View premium tier information and purchase options. Displays available features for each tier and upgrade benefits.</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">/roleselector</div>
+                        <div class="command-desc">Creates an interactive role selection panel with buttons. Server owners can customize which roles are available for self-assignment.</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">/ping</div>
+                        <div class="command-desc">Shows bot statistics including latency, uptime, server count, and system performance metrics.</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">/ban @user [reason]</div>
+                        <div class="command-desc">Ban a user from the server. Requires Ban Members permission. Sends a DM notification to the banned user with the reason.</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">/kick @user [reason]</div>
+                        <div class="command-desc">Kick a user from the server. Requires Kick Members permission. User can rejoin with a new invite.</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">/timeout @user [duration] [reason]</div>
+                        <div class="command-desc">Timeout a user for a specified duration. Prevents them from sending messages, adding reactions, or joining voice channels.</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">/warn @user [reason]</div>
+                        <div class="command-desc">Issue a warning to a user. Warnings are logged and can be viewed by moderators. User receives a DM notification.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="prefix-commands" class="tab-content">
+                <div class="command-list">
+                    <div class="command-item">
+                        <div class="command-syntax">!welcome</div>
+                        <div class="command-desc">Alternative prefix command for welcome system configuration. Opens the same interactive panel as /welcome.</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">!premium</div>
+                        <div class="command-desc">View premium tier information using prefix commands.</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">!ban @user [reason]</div>
+                        <div class="command-desc">Ban a user using prefix commands. Same functionality as slash command.</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">!kick @user [reason]</div>
+                        <div class="command-desc">Kick a user using prefix commands.</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">!timeout @user [duration] [reason]</div>
+                        <div class="command-desc">Timeout a user using prefix commands. Duration can be specified in minutes (m), hours (h), or days (d).</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">!warn @user [reason]</div>
+                        <div class="command-desc">Issue a warning using prefix commands.</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">!ping</div>
+                        <div class="command-desc">Check bot statistics and latency using prefix commands.</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-syntax">!roleselector</div>
+                        <div class="command-desc">Create role selector panel using prefix commands.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="setup">
+        <div class="container">
+            <h2 class="section-title">Setup Guide for Server Owners</h2>
+            <div class="command-list">
+                <div class="command-item">
+                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 24px;">Step 1: Invite the Bot</h3>
+                    <p>Click the "Invite NHI Bot" button at the top of this page. Make sure to grant all requested permissions for full functionality.</p>
+                </div>
+                <div class="command-item">
+                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 24px;">Step 2: Configure Permissions</h3>
+                    <p>Ensure NHI Bot has the following permissions in your server:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px; color: #c0c0c0;">
+                        <li>Manage Roles (for role selector)</li>
+                        <li>Manage Channels (for welcome channel setup)</li>
+                        <li>Ban Members & Kick Members (for moderation)</li>
+                        <li>Moderate Members (for timeout)</li>
+                        <li>Send Messages & Embed Links (for welcome cards)</li>
+                        <li>Attach Files (for welcome images)</li>
+                    </ul>
+                </div>
+                <div class="command-item">
+                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 24px;">Step 3: Set Up Welcome System</h3>
+                    <p>Use the <span style="color: #3b82f6; font-weight: 700;">/welcome</span> command to open the configuration panel. Select your welcome channel, choose a theme, and customize your welcome message.</p>
+                </div>
+                <div class="command-item">
+                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 24px;">Step 4: Configure Role Selector</h3>
+                    <p>Use <span style="color: #3b82f6; font-weight: 700;">/roleselector</span> to create self-assignable role buttons. The bot will guide you through selecting which roles members can self-assign.</p>
+                </div>
+                <div class="command-item">
+                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 24px;">Step 5: Test Your Setup</h3>
+                    <p>Use <span style="color: #3b82f6; font-weight: 700;">/ping</span> to verify the bot is responsive. Test the welcome system by having a friend join or using the preview feature in the welcome configuration.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 class="section-title">Troubleshooting</h2>
+            <div class="command-list">
+                <div class="command-item">
+                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 22px;">🚫 Bot Not Responding to Commands</h3>
+                    <p><strong>Solution:</strong> Ensure the bot has "Use Application Commands" permission enabled in your server settings. Check that the bot role is not positioned below other roles that might restrict permissions.</p>
+                </div>
+                <div class="command-item">
+                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 22px;">📭 Welcome Messages Not Sending</h3>
+                    <p><strong>Solution:</strong> Verify that the bot has "Send Messages" and "Attach Files" permissions in your welcome channel. Use <span style="color: #3b82f6; font-weight: 700;">/welcome</span> to check if a welcome channel is properly configured.</p>
+                </div>
+                <div class="command-item">
+                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 22px;">🎭 Role Selector Not Working</h3>
+                    <p><strong>Solution:</strong> Make sure the NHI Bot role is positioned ABOVE the roles you want members to self-assign. Discord's role hierarchy requires bots to be above roles they manage.</p>
+                </div>
+                <div class="command-item">
+                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 22px;">🔨 Moderation Commands Failing</h3>
+                    <p><strong>Solution:</strong> Check that the bot has appropriate moderation permissions (Ban Members, Kick Members, Moderate Members). Ensure the bot's role is higher than the target user's highest role.</p>
+                </div>
+                <div class="command-item">
+                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 22px;">⚙️ Premium Features Not Available</h3>
+                    <p><strong>Solution:</strong> Use <span style="color: #3b82f6; font-weight: 700;">/premium</span> to verify your subscription status. If you've recently upgraded, try using the command again after a few minutes as tier updates may take time to sync.</p>
+                </div>
+                <div class="command-item">
+                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 22px;">🖼️ Welcome Card Images Not Loading</h3>
+                    <p><strong>Solution:</strong> Ensure the bot has "Attach Files" permission. If using custom backgrounds (premium feature), verify your image URL is publicly accessible and in a supported format (PNG, JPG, GIF).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="changelog">
+        <div class="container">
+            <h2 class="section-title">The Journey to v3.0</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="version">v1.0 - The Beginning (2020)</div>
+                    <p>NHI Bot was originally created for a hockey server community. It started as a simple role selection bot under Kurrasch Networking Solutions. The bot provided basic functionality for members to self-assign roles and helped manage the growing hockey community.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="version">The Shutdown (2022)</div>
+                    <p>After two years of service, NHI Bot went offline. Technical issues and infrastructure changes made it difficult to maintain. When asked about the bot's status, delivering the news that "NHI Bot shut down 3 years ago" was heartbreaking - seeing your own work taken down is never easy.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="version">The Rebirth - Kurrasch Systems (2023)</div>
+                    <p>After long discussions with colleagues and buddies, Kurrasch Systems was born in 2023, marking the end of an era for Kurrasch Networking Solutions. This transformation brought new life and possibilities. Most to all bots are now powered through Kurrasch Systems, representing a unified and more powerful infrastructure.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="version">The Merger - Kurrasch Gaming Merch Store LLC (Fall 2024)</div>
+                    <p>Kurrasch Systems joined forces with Kurrasch Gaming Merch Store LLC in fall 2024. The LLC, which creates custom gaming merchandise and items, had just gotten their store settled when they decided to take on the challenge. "We scaled too quick," but the LLC was ready: "bring it on!" The LLC bought the old network, and it became what it is today - a complete ecosystem of services.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="version">v2.0 Beta - Development Phase (Early 2024)</div>
+                    <p>Development resumed on NHI Bot after 2 years of dormancy. All recoverable files from the old bot system were salvaged and rebuilt from the ground up. The beta introduced the foundation for the welcome system, moderation tools, and began implementing features found in popular Discord bots.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="version">v3.0 - Full Release (October 2024)</div>
+                    <p>NHI Bot v3.0 represents a complete transformation from its humble beginnings. What started as basic role selection has evolved into a feature-packed bot with:</p>
+                    <ul>
+                        <li>4-tier premium system with extensive customization</li>
+                        <li>240 seasonal themes across 12 holiday packs</li>
+                        <li>Advanced welcome card system with 9 base color themes</li>
+                        <li>Complete moderation suite (ban, kick, timeout, warn)</li>
+                        <li>Interactive role selector with button controls</li>
+                        <li>Custom fonts, backgrounds, avatar frames, and animated effects</li>
+                        <li>Both slash commands and prefix command support</li>
+                        <li>Persistent settings and error handling</li>
+                    </ul>
+                    <p style="margin-top: 15px;">This bot is jam-packed with features that rival popular bots on Discord. From the ashes of the 2022 shutdown, NHI Bot has risen stronger than ever, now backed by the full power of Kurrasch Systems and the Kurrasch Gaming Merch Store LLC.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🏒 NHI Bot v3.0</h3>
+                    <p style="color: #b0b0b0;">A feature-rich Discord moderation and community management bot created and maintained by Kurrasch Systems.</p>
+                    <img src="https://raw.githubusercontent.com/sapphirediamondcasino-bit/NHI-Bot-Images/main/NHI_3.png" alt="NHI Bot Logo" style="max-width: 150px; margin-top: 20px; border-radius: 10px; border: 2px solid rgba(239, 68, 68, 0.3);">
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#commands">Commands</a></li>
+                        <li><a href="#setup">Setup Guide</a></li>
+                        <li><a href="#changelog">Changelog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://discord.com/oauth2/authorize?client_id=1042167339476590643&permissions=242666031174&integration_type=0&scope=bot+applications.commands" target="_blank">Invite Bot</a></li>
+                        <li><a href="https://kurraschsystemsstudio.online" target="_blank">Kurrasch Systems Studio</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Kurrasch Systems</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://kurraschsystemsstudio.online" target="_blank">Main Website</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p style="font-size: 18px; font-weight: 700;">Powered by Kurrasch Systems 🚀</p>
+                <p style="margin-top: 10px; font-size: 14px;">© 2024 Kurrasch Gaming Merch Store LLC. All rights reserved.</p>
+                <p style="margin-top: 5px; font-size: 12px;">NHI Bot v3.0 - From Kurrasch Networking Solutions to Kurrasch Systems</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tabName) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName + '-commands').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
