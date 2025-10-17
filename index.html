@@ -20,7 +20,6 @@
             position: relative;
         }
 
-        /* Ice Rink Background Effect */
         body::before {
             content: '';
             position: fixed;
@@ -29,13 +28,12 @@
             width: 100%;
             height: 100%;
             background: 
-                linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.03) 50%, transparent 100%),
+                linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%),
                 linear-gradient(0deg, #000000 0%, #0a0a0f 30%, #1a0b2e 60%, #16213e 100%);
             pointer-events: none;
             z-index: 0;
         }
 
-        /* Ice Lines */
         body::after {
             content: '';
             position: fixed;
@@ -57,16 +55,15 @@
             z-index: 1;
         }
 
-        /* Navigation */
         nav {
-            background: rgba(10, 10, 15, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.98);
+            backdrop-filter: blur(30px);
             padding: 20px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
             border-bottom: 3px solid rgba(239, 68, 68, 0.5);
-            box-shadow: 0 4px 30px rgba(139, 92, 246, 0.2);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
         }
 
         nav .container {
@@ -84,6 +81,12 @@
             background-clip: text;
             text-transform: uppercase;
             letter-spacing: 2px;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 0px rgba(239, 68, 68, 0.3)); }
+            50% { filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.8)); }
         }
 
         .nav-links {
@@ -122,7 +125,6 @@
             color: #ef4444;
         }
 
-        /* Hero Section */
         .hero {
             padding: 120px 0 80px;
             text-align: center;
@@ -138,8 +140,9 @@
             transform: translate(-50%, -50%);
             width: 800px;
             height: 800px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
             pointer-events: none;
+            filter: blur(50px);
         }
 
         .hero-banner {
@@ -149,10 +152,11 @@
             margin: 0 auto 50px;
             border-radius: 20px;
             box-shadow: 
-                0 0 60px rgba(139, 92, 246, 0.4),
-                0 0 100px rgba(239, 68, 68, 0.3);
+                0 0 80px rgba(139, 92, 246, 0.5),
+                0 0 120px rgba(239, 68, 68, 0.3),
+                inset 0 0 40px rgba(255, 255, 255, 0.05);
             animation: float 8s ease-in-out infinite;
-            border: 3px solid rgba(139, 92, 246, 0.3);
+            border: 3px solid rgba(139, 92, 246, 0.4);
         }
 
         @keyframes float {
@@ -254,7 +258,6 @@
             transform: translateY(-5px);
         }
 
-        /* Section Styling */
         section {
             padding: 100px 0;
             position: relative;
@@ -273,7 +276,6 @@
             letter-spacing: 2px;
         }
 
-        /* Features Grid */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -338,7 +340,6 @@
             color: #c0c0c0;
         }
 
-        /* Pricing Tiers */
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -428,63 +429,98 @@
             margin-right: 12px;
         }
 
-        /* Theme Showcase */
-        .theme-showcase {
+        .welcome-card-showcase {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
             margin-top: 50px;
         }
 
-        .theme-card {
+        .welcome-card-demo {
+            position: relative;
             border-radius: 20px;
             overflow: hidden;
             border: 3px solid rgba(139, 92, 246, 0.4);
             transition: all 0.4s;
-            position: relative;
+            background-size: cover;
+            background-position: center;
+            aspect-ratio: 16/9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
         }
 
-        .theme-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(139, 92, 246, 0.2));
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .theme-card:hover::after {
-            opacity: 1;
-        }
-
-        .theme-card:hover {
-            transform: scale(1.08) rotate(2deg);
-            box-shadow: 
-                0 25px 60px rgba(139, 92, 246, 0.5),
-                0 0 80px rgba(239, 68, 68, 0.4);
+        .welcome-card-demo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 60px rgba(139, 92, 246, 0.5), 0 0 50px rgba(239, 68, 68, 0.4);
             border-color: #ef4444;
         }
 
-        .theme-card img {
+        .welcome-card-content {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
-            display: block;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
         }
 
-        .theme-label {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            padding: 18px;
+        .avatar-ring {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            border: 5px solid;
+            box-shadow: 0 0 30px currentColor;
+        }
+
+        .avatar-placeholder {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: #2c2c2c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+
+        .welcome-text {
             text-align: center;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 16px;
         }
 
-        /* Commands Section */
+        .welcome-text h3 {
+            font-size: 42px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .welcome-text .username {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+        }
+
+        .welcome-text .member-count {
+            font-size: 20px;
+            font-weight: 600;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+        }
+
         .command-tabs {
             display: flex;
             justify-content: center;
@@ -549,7 +585,6 @@
             line-height: 1.7;
         }
 
-        /* Holiday Packs */
         .holiday-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -591,7 +626,6 @@
             font-weight: 600;
         }
 
-        /* Changelog */
         .timeline {
             position: relative;
             padding: 50px 0;
@@ -649,7 +683,6 @@
             margin-bottom: 8px;
         }
 
-        /* Footer */
         footer {
             background: rgba(10, 10, 15, 0.95);
             padding: 80px 0 40px;
@@ -713,92 +746,6 @@
             display: block;
         }
 
-        .welcome-card-showcase {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .welcome-card-demo {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 3px solid rgba(139, 92, 246, 0.4);
-            transition: all 0.4s;
-            background-size: cover;
-            background-position: center;
-            aspect-ratio: 16/9;
-        }
-
-        .welcome-card-demo:hover {
-            transform: scale(1.05);
-            box-shadow: 0 25px 60px rgba(139, 92, 246, 0.5);
-            border-color: #ef4444;
-        }
-
-        .welcome-card-content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .avatar-ring {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            border: 5px solid;
-        }
-
-        .avatar-placeholder {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            background: #2c2c2c;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-        }
-
-        .welcome-text {
-            text-align: center;
-        }
-
-        .welcome-text h3 {
-            font-size: 42px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-        }
-
-        .welcome-text .username {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
-        }
-
-        .welcome-text .member-count {
-            font-size: 20px;
-            font-weight: 600;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 38px;
@@ -817,7 +764,7 @@
             }
 
             .features-grid,
-            .theme-showcase {
+            .welcome-card-showcase {
                 grid-template-columns: 1fr;
             }
         }
@@ -839,8 +786,8 @@
 
     <section class="hero">
         <div class="container">
-            <img src="https://github.com/sapphirediamondcasino-bit/NHI-Bot-Images/blob/main/standard.gif" alt="NHI Bot v3.0 Banner" class="hero-banner">
-            <img src="https://github.com/sapphirediamondcasino-bit/NHI-Bot-Images/blob/main/standard.gif" alt="Kurrasch Systems" style="max-width: 600px; width: 100%; height: auto; margin: 30px auto 50px; display: block; border-radius: 15px; box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3);">
+            <img src="https://cdn.discordapp.com/attachments/1428592257581318255/1428592527862399097/NHI_Bot_Banner.png?ex=68f30ff8&is=68f1be78&hm=a1a70c6833a2e8e5ad78f8fb41eeb338c1610375ab347e01939661965c249f9f&" alt="NHI Bot v3.0 Banner" class="hero-banner">
+            <img src="https://cdn.discordapp.com/attachments/1428592257581318255/1428592527409418331/NHI_3.png?ex=68f30ff8&is=68f1be78&hm=607cc2ab30b8273ff51455a032d47d4fb2f9518ba936393f0f72e2bb8a15711a&" alt="Kurrasch Systems" style="max-width: 600px; width: 100%; height: auto; margin: 30px auto 50px; display: block; border-radius: 15px; box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3);">
             <h1>NHI Bot v3.0 – Full Release</h1>
             <p>A feature-rich Discord moderation and community management bot built for powerful automation, role control, and stylish welcome systems. Born from a hockey community, evolved into a complete server solution.</p>
             <div class="cta-buttons">
@@ -898,7 +845,7 @@
                 <h3 style="color: #ef4444; font-size: 32px; margin-bottom: 35px; text-transform: uppercase; letter-spacing: 1px;">9 Default Themes</h3>
                 <div class="welcome-card-showcase">
                     <!-- Purple Theme -->
-                    <div class="welcome-card-demo" style="background-image: url('https://raw.githubusercontent.com/sapphirediamondcasino-bit/NHI-Bot-Images/main/Nhi%20purple.png');">
+                    <div class="welcome-card-demo" style="background-image: url('https://cdn.discordapp.com/attachments/1428592257581318255/1428592528814510160/Nhi_purple.png?ex=68f30ff8&is=68f1be78&hm=fb555277da6b5a29209d1acc42c8f6c66fab34929f0d58d7de69262057218266&');">
                         <div class="welcome-card-content">
                             <div class="avatar-ring" style="border-color: #9b59b6;">
                                 <div class="avatar-placeholder">👤</div>
@@ -912,7 +859,7 @@
                     </div>
 
                     <!-- Red Theme -->
-                    <div class="welcome-card-demo" style="background-image: url('https://raw.githubusercontent.com/sapphirediamondcasino-bit/NHI-Bot-Images/main/Nhi%20red.png');">
+                    <div class="welcome-card-demo" style="background-image: url('https://cdn.discordapp.com/attachments/1428592257581318255/1428592529246519378/Nhi_red.png?ex=68f30ff8&is=68f1be78&hm=ada1bd2d9808dfa54558b1fac332dcac27676092243dd4e3678c3a115426f2bc&');">
                         <div class="welcome-card-content">
                             <div class="avatar-ring" style="border-color: #e74c3c;">
                                 <div class="avatar-placeholder">👤</div>
@@ -926,7 +873,7 @@
                     </div>
 
                     <!-- Yellow Theme -->
-                    <div class="welcome-card-demo" style="background-image: url('https://raw.githubusercontent.com/sapphirediamondcasino-bit/NHI-Bot-Images/main/Nhi%20yellow.png');">
+                    <div class="welcome-card-demo" style="background-image: url('https://cdn.discordapp.com/attachments/1428592257581318255/1428592529690988595/Nhi_yellow.png?ex=68f30ff9&is=68f1be79&hm=86b064f25011dcb5c8bb05fdad9fdf9180788c3e999feafcba7e05a3d601299e&');">
                         <div class="welcome-card-content">
                             <div class="avatar-ring" style="border-color: #f1c40f;">
                                 <div class="avatar-placeholder">👤</div>
@@ -940,7 +887,7 @@
                     </div>
 
                     <!-- Blue Theme -->
-                    <div class="welcome-card-demo" style="background-image: url('https://raw.githubusercontent.com/sapphirediamondcasino-bit/NHI-Bot-Images/main/nhi%20blue.png');">
+                    <div class="welcome-card-demo" style="background-image: url('https://cdn.discordapp.com/attachments/1428592257581318255/1428592528323645582/nhi_blue.png?ex=68f30ff8&is=68f1be78&hm=b79d7bb9c0654bb6197df68b1d223e29b20ee428025318b8326c271481056132&');">
                         <div class="welcome-card-content">
                             <div class="avatar-ring" style="border-color: #3498db;">
                                 <div class="avatar-placeholder">👤</div>
@@ -954,7 +901,7 @@
                     </div>
 
                     <!-- Green Theme -->
-                    <div class="welcome-card-demo" style="background: linear-gradient(135deg, #1a4d2e 0%, #2ecc71 100%);">
+                    <div class="welcome-card-demo" style="background-image: url('https://cdn.discordapp.com/attachments/1428592257581318255/1428592527862399097/NHI_Bot_Banner.png?ex=68f30ff8&is=68f1be78&hm=a1a70c6833a2e8e5ad78f8fb41eeb338c1610375ab347e01939661965c249f9f&');">
                         <div class="welcome-card-content">
                             <div class="avatar-ring" style="border-color: #2ecc71;">
                                 <div class="avatar-placeholder">👤</div>
@@ -968,7 +915,7 @@
                     </div>
 
                     <!-- Orange Theme -->
-                    <div class="welcome-card-demo" style="background: linear-gradient(135deg, #8b3a00 0%, #e67e22 100%);">
+                    <div class="welcome-card-demo" style="background-image: url('https://cdn.discordapp.com/attachments/1428592257581318255/1428592527862399097/NHI_Bot_Banner.png?ex=68f30ff8&is=68f1be78&hm=a1a70c6833a2e8e5ad78f8fb41eeb338c1610375ab347e01939661965c249f9f&');">
                         <div class="welcome-card-content">
                             <div class="avatar-ring" style="border-color: #e67e22;">
                                 <div class="avatar-placeholder">👤</div>
@@ -982,7 +929,7 @@
                     </div>
 
                     <!-- Pink Theme -->
-                    <div class="welcome-card-demo" style="background: linear-gradient(135deg, #6b0042 0%, #ff1493 100%);">
+                    <div class="welcome-card-demo" style="background-image: url('https://cdn.discordapp.com/attachments/1428592257581318255/1428592527862399097/NHI_Bot_Banner.png?ex=68f30ff8&is=68f1be78&hm=a1a70c6833a2e8e5ad78f8fb41eeb338c1610375ab347e01939661965c249f9f&');">
                         <div class="welcome-card-content">
                             <div class="avatar-ring" style="border-color: #ff1493;">
                                 <div class="avatar-placeholder">👤</div>
@@ -996,7 +943,7 @@
                     </div>
 
                     <!-- Dark Theme -->
-                    <div class="welcome-card-demo" style="background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);">
+                    <div class="welcome-card-demo" style="background-image: url('https://cdn.discordapp.com/attachments/1428592257581318255/1428592527862399097/NHI_Bot_Banner.png?ex=68f30ff8&is=68f1be78&hm=a1a70c6833a2e8e5ad78f8fb41eeb338c1610375ab347e01939661965c249f9f&');">
                         <div class="welcome-card-content">
                             <div class="avatar-ring" style="border-color: #ff0000;">
                                 <div class="avatar-placeholder">👤</div>
@@ -1010,7 +957,7 @@
                     </div>
 
                     <!-- Default NHI Theme -->
-                    <div class="welcome-card-demo" style="background: linear-gradient(135deg, #1a0b2e 0%, #8b5cf6 100%);">
+                    <div class="welcome-card-demo" style="background-image: url('https://cdn.discordapp.com/attachments/1428592257581318255/1428592527862399097/NHI_Bot_Banner.png?ex=68f30ff8&is=68f1be78&hm=a1a70c6833a2e8e5ad78f8fb41eeb338c1610375ab347e01939661965c249f9f&');">
                         <div class="welcome-card-content">
                             <div class="avatar-ring" style="border-color: #8b5cf6;">
                                 <div class="avatar-placeholder">👤</div>
@@ -1034,52 +981,52 @@
                 <h3 style="color: #ef4444; font-size: 32px; margin-bottom: 35px; text-align: center; text-transform: uppercase; letter-spacing: 1px;">🎃 Halloween Pack Preview</h3>
                 <div style="background: rgba(10, 10, 15, 0.6); backdrop-filter: blur(20px); border-radius: 25px; padding: 50px; border: 2px solid rgba(255, 107, 53, 0.3); margin-bottom: 50px;">
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px;">
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FF6B35;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FF6B35; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(255, 107, 53, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🎃</div>
                             <h4 style="color: #FF6B35; margin-bottom: 8px; font-weight: 800;">Pumpkin Patch</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #E0E0E0;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #E0E0E0; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(224, 224, 224, 0.3)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">👻</div>
                             <h4 style="color: #E0E0E0; margin-bottom: 8px; font-weight: 800;">Haunted Ghost</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #8B4789;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #8B4789; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(139, 71, 137, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🧙</div>
                             <h4 style="color: #B565B3; margin-bottom: 8px; font-weight: 800;">Witch's Brew</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #666666;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #666666; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(102, 102, 102, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🕷️</div>
                             <h4 style="color: #999999; margin-bottom: 8px; font-weight: 800;">Spider Web</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FFA500;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FFA500; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(255, 165, 0, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🍬</div>
                             <h4 style="color: #FFD93D; margin-bottom: 8px; font-weight: 800;">Candy Corn</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(139, 92, 246, 0.1); border-radius: 15px; border: 2px solid #8b5cf6;">
+                        <div style="text-align: center; padding: 20px; background: rgba(139, 92, 246, 0.1); border-radius: 15px; border: 2px solid #8b5cf6; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(139, 92, 246, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🪦</div>
                             <h4 style="color: #8b5cf6; margin-bottom: 8px; font-weight: 800;">Spooky Cemetery</h4>
                             <p style="color: #8b5cf6; font-size: 14px; font-weight: 700;">TIER 1</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(139, 92, 246, 0.1); border-radius: 15px; border: 2px solid #8b5cf6;">
+                        <div style="text-align: center; padding: 20px; background: rgba(139, 92, 246, 0.1); border-radius: 15px; border: 2px solid #8b5cf6; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(139, 92, 246, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🌕</div>
                             <h4 style="color: #CD5C5C; margin-bottom: 8px; font-weight: 800;">Blood Moon</h4>
                             <p style="color: #8b5cf6; font-size: 14px; font-weight: 700;">TIER 1</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 15px; border: 2px solid #ef4444;">
+                        <div style="text-align: center; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 15px; border: 2px solid #ef4444; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(239, 68, 68, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🧟</div>
                             <h4 style="color: #8FBC8F; margin-bottom: 8px; font-weight: 800;">Zombie Apocalypse</h4>
                             <p style="color: #ef4444; font-size: 14px; font-weight: 700;">TIER 2</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 15px; border: 2px solid #ef4444;">
+                        <div style="text-align: center; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 15px; border: 2px solid #ef4444; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(239, 68, 68, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🏚️</div>
                             <h4 style="color: #5C4033; margin-bottom: 8px; font-weight: 800;">Haunted Mansion</h4>
                             <p style="color: #ef4444; font-size: 14px; font-weight: 700;">TIER 2</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(139, 92, 246, 0.15)); border-radius: 15px; border: 2px solid #FFD700;">
+                        <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(139, 92, 246, 0.15)); border-radius: 15px; border: 2px solid #FFD700; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(255, 215, 0, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">☠️</div>
                             <h4 style="color: #FFD700; margin-bottom: 8px; font-weight: 800;">Grim Reaper</h4>
                             <p style="color: #FFD700; font-size: 14px; font-weight: 700;">TIER 3</p>
@@ -1091,42 +1038,42 @@
                 <h3 style="color: #ef4444; font-size: 32px; margin-bottom: 35px; text-align: center; text-transform: uppercase; letter-spacing: 1px;">🦃 Thanksgiving Pack Preview</h3>
                 <div style="background: rgba(10, 10, 15, 0.6); backdrop-filter: blur(20px); border-radius: 25px; padding: 50px; border: 2px solid rgba(139, 69, 19, 0.4); margin-bottom: 50px;">
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px;">
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #8B4513;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #8B4513; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(139, 69, 19, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🦃</div>
                             <h4 style="color: #D2691E; margin-bottom: 8px; font-weight: 800;">Turkey Time</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FFA500;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FFA500; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(255, 165, 0, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🌾</div>
                             <h4 style="color: #FFD700; margin-bottom: 8px; font-weight: 800;">Harvest Season</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FF8C00;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FF8C00; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(255, 140, 0, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🥧</div>
                             <h4 style="color: #FFA500; margin-bottom: 8px; font-weight: 800;">Pumpkin Pie</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #CD853F;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #CD853F; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(205, 133, 63, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🍂</div>
                             <h4 style="color: #DEB887; margin-bottom: 8px; font-weight: 800;">Autumn Leaves</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #DAA520;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #DAA520; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(218, 165, 32, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🌽</div>
                             <h4 style="color: #FFD700; margin-bottom: 8px; font-weight: 800;">Cornucopia</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(139, 92, 246, 0.1); border-radius: 15px; border: 2px solid #8b5cf6;">
+                        <div style="text-align: center; padding: 20px; background: rgba(139, 92, 246, 0.1); border-radius: 15px; border: 2px solid #8b5cf6; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(139, 92, 246, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🍽️</div>
                             <h4 style="color: #D2691E; margin-bottom: 8px; font-weight: 800;">Family Feast</h4>
                             <p style="color: #8b5cf6; font-size: 14px; font-weight: 700;">TIER 1</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 15px; border: 2px solid #ef4444;">
+                        <div style="text-align: center; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 15px; border: 2px solid #ef4444; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(239, 68, 68, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🏡</div>
                             <h4 style="color: #BC8F8F; margin-bottom: 8px; font-weight: 800;">Country Farmhouse</h4>
                             <p style="color: #ef4444; font-size: 14px; font-weight: 700;">TIER 2</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(139, 92, 246, 0.15)); border-radius: 15px; border: 2px solid #FFD700;">
+                        <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(139, 92, 246, 0.15)); border-radius: 15px; border: 2px solid #FFD700; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(255, 215, 0, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🎗️</div>
                             <h4 style="color: #FFD700; margin-bottom: 8px; font-weight: 800;">Abundance</h4>
                             <p style="color: #FFD700; font-size: 14px; font-weight: 700;">TIER 3</p>
@@ -1138,42 +1085,42 @@
                 <h3 style="color: #ef4444; font-size: 32px; margin-bottom: 35px; text-align: center; text-transform: uppercase; letter-spacing: 1px;">🎄 Christmas Pack Preview</h3>
                 <div style="background: rgba(10, 10, 15, 0.6); backdrop-filter: blur(20px); border-radius: 25px; padding: 50px; border: 2px solid rgba(34, 139, 34, 0.4);">
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px;">
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #228B22;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #228B22; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(34, 139, 34, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🎄</div>
                             <h4 style="color: #32CD32; margin-bottom: 8px; font-weight: 800;">Christmas Tree</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #DC143C;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #DC143C; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(220, 20, 60, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🎅</div>
                             <h4 style="color: #FF6347; margin-bottom: 8px; font-weight: 800;">Santa Claus</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #E0FFFF;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #E0FFFF; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(224, 255, 255, 0.3)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">⛄</div>
                             <h4 style="color: #E0FFFF; margin-bottom: 8px; font-weight: 800;">Snowman</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FFD700;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #FFD700; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(255, 215, 0, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🎁</div>
                             <h4 style="color: #FFA500; margin-bottom: 8px; font-weight: 800;">Gift Wrapped</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #87CEEB;">
+                        <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 15px; border: 2px solid #87CEEB; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(135, 206, 235, 0.3)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">❄️</div>
                             <h4 style="color: #B0E0E6; margin-bottom: 8px; font-weight: 800;">Snowy Night</h4>
                             <p style="color: #b0b0b0; font-size: 14px;">FREE</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(139, 92, 246, 0.1); border-radius: 15px; border: 2px solid #8b5cf6;">
+                        <div style="text-align: center; padding: 20px; background: rgba(139, 92, 246, 0.1); border-radius: 15px; border: 2px solid #8b5cf6; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(139, 92, 246, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🍬</div>
                             <h4 style="color: #DC143C; margin-bottom: 8px; font-weight: 800;">Candy Cane Lane</h4>
                             <p style="color: #8b5cf6; font-size: 14px; font-weight: 700;">TIER 1</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 15px; border: 2px solid #ef4444;">
+                        <div style="text-align: center; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 15px; border: 2px solid #ef4444; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(239, 68, 68, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🔥</div>
                             <h4 style="color: #FF4500; margin-bottom: 8px; font-weight: 800;">Cozy Fireplace</h4>
                             <p style="color: #ef4444; font-size: 14px; font-weight: 700;">TIER 2</p>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(139, 92, 246, 0.15)); border-radius: 15px; border: 2px solid #FFD700;">
+                        <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(139, 92, 246, 0.15)); border-radius: 15px; border: 2px solid #FFD700; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(255, 215, 0, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                             <div style="font-size: 48px; margin-bottom: 10px;">🌟</div>
                             <h4 style="color: #FFD700; margin-bottom: 8px; font-weight: 800;">Christmas Magic</h4>
                             <p style="color: #FFD700; font-size: 14px; font-weight: 700;">TIER 3</p>
@@ -1446,38 +1393,6 @@
         </div>
     </section>
 
-    <section>
-        <div class="container">
-            <h2 class="section-title">Troubleshooting</h2>
-            <div class="command-list">
-                <div class="command-item">
-                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 22px;">🚫 Bot Not Responding to Commands</h3>
-                    <p><strong>Solution:</strong> Ensure the bot has "Use Application Commands" permission enabled in your server settings. Check that the bot role is not positioned below other roles that might restrict permissions.</p>
-                </div>
-                <div class="command-item">
-                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 22px;">📭 Welcome Messages Not Sending</h3>
-                    <p><strong>Solution:</strong> Verify that the bot has "Send Messages" and "Attach Files" permissions in your welcome channel. Use <span style="color: #3b82f6; font-weight: 700;">/welcome</span> to check if a welcome channel is properly configured.</p>
-                </div>
-                <div class="command-item">
-                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 22px;">🎭 Role Selector Not Working</h3>
-                    <p><strong>Solution:</strong> Make sure the NHI Bot role is positioned ABOVE the roles you want members to self-assign. Discord's role hierarchy requires bots to be above roles they manage.</p>
-                </div>
-                <div class="command-item">
-                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 22px;">🔨 Moderation Commands Failing</h3>
-                    <p><strong>Solution:</strong> Check that the bot has appropriate moderation permissions (Ban Members, Kick Members, Moderate Members). Ensure the bot's role is higher than the target user's highest role.</p>
-                </div>
-                <div class="command-item">
-                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 22px;">⚙️ Premium Features Not Available</h3>
-                    <p><strong>Solution:</strong> Use <span style="color: #3b82f6; font-weight: 700;">/premium</span> to verify your subscription status. If you've recently upgraded, try using the command again after a few minutes as tier updates may take time to sync.</p>
-                </div>
-                <div class="command-item">
-                    <h3 style="color: #ef4444; margin-bottom: 15px; font-size: 22px;">🖼️ Welcome Card Images Not Loading</h3>
-                    <p><strong>Solution:</strong> Ensure the bot has "Attach Files" permission. If using custom backgrounds (premium feature), verify your image URL is publicly accessible and in a supported format (PNG, JPG, GIF).</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="changelog">
         <div class="container">
             <h2 class="section-title">The Journey to v3.0</h2>
@@ -1525,9 +1440,9 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>🏒 NHI Bot v3.0</h3>
+                    h3>🏒 NHI Bot v3.0</h3>
                     <p style="color: #b0b0b0;">A feature-rich Discord moderation and community management bot created and maintained by Kurrasch Systems.</p>
-                    <img src="https://raw.githubusercontent.com/sapphirediamondcasino-bit/NHI-Bot-Images/main/NHI_3.png" alt="NHI Bot Logo" style="max-width: 150px; margin-top: 20px; border-radius: 10px; border: 2px solid rgba(239, 68, 68, 0.3);">
+                    <img src="https://cdn.discordapp.com/attachments/1428592257581318255/1428592527409418331/NHI_3.png?ex=68f30ff8&is=68f1be78&hm=607cc2ab30b8273ff51455a032d47d4fb2f9518ba936393f0f72e2bb8a15711a&" alt="NHI Bot Logo" style="max-width: 150px; margin-top: 20px; border-radius: 10px; border: 2px solid rgba(239, 68, 68, 0.3);">
                 </div>
                 <div class="footer-section">
                     <h3>Quick Links</h3>
